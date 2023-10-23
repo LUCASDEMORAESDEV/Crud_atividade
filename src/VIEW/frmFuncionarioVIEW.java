@@ -68,9 +68,18 @@ public class frmFuncionarioVIEW extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "codigo ", "nome ", "endereço","preco","quantidade"
+                "codigo ", "nome ", "endereço","quantidade","preco"
             }
         ));
+        tabelaFuncionario.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tabelaFuncionarioAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jScrollPane1.setViewportView(tabelaFuncionario);
 
         btnCadastrar1.setText("CADASTRAR");
@@ -250,6 +259,10 @@ public class frmFuncionarioVIEW extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecoActionPerformed
 
+    private void tabelaFuncionarioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tabelaFuncionarioAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaFuncionarioAncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -316,11 +329,10 @@ public class frmFuncionarioVIEW extends javax.swing.JFrame {
             for (int num = 0; num < lista.size(); num++) {
                 model.addRow(new Object[]{
                     lista.get(num).getId(),
-                    lista.get(num).getPreco(),
                     lista.get(num).getNome(),
-                    lista.get(num).getQuantidade(),
                     lista.get(num).getDescricao(),
-
+                    lista.get(num).getQuantidade(),
+                    lista.get(num).getPreco(),
                 });
 
             }
@@ -354,8 +366,9 @@ public class frmFuncionarioVIEW extends javax.swing.JFrame {
         FuncionarioDTO objfuncionariodto = new FuncionarioDTO();
         objfuncionariodto.setNome(Nome);
         objfuncionariodto.setDescricao(descricao);
-        objfuncionariodto.setPreco(preco);
         objfuncionariodto.setQuantidade(quantidade);
+        objfuncionariodto.setPreco(preco);
+        
 
         FuncionarioDao objfuncionariodao = new FuncionarioDao();
         objfuncionariodao.cadastrarFunicionario(objfuncionariodto);
@@ -373,18 +386,22 @@ public class frmFuncionarioVIEW extends javax.swing.JFrame {
     }
 
     private void AlterarFuncionario() {
-        int id;
+        int id, quantidade;
         String nome, descricao;
-
+        double preco;
         id = Integer.parseInt(txtCodigo.getText());
         nome = txtnome.getText();
         descricao = txtEndereco.getText();
-
+        quantidade = Integer.parseInt(txtQuantidade.getText());
+        preco = Double.parseDouble(txtPreco.getText());
+        
         FuncionarioDTO objfuncionariodto = new FuncionarioDTO();
         objfuncionariodto.setId(id);
         objfuncionariodto.setNome(nome);
         objfuncionariodto.setDescricao(descricao);
-
+        objfuncionariodto.setQuantidade(quantidade);
+        objfuncionariodto.setPreco(preco);
+       
         FuncionarioDao objfuncionariodao = new FuncionarioDao();
         objfuncionariodao.alterarFuncionario(objfuncionariodto);
     }

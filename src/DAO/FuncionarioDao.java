@@ -27,8 +27,9 @@ public class FuncionarioDao {
             pstm = conn.prepareStatement(sql);
             pstm.setString(1, objfuncionariodto.getNome());
             pstm.setString(2, objfuncionariodto.getDescricao());
-            pstm.setString(3, String.valueOf(objfuncionariodto.getPreco()));
-            pstm.setString(4, String.valueOf(objfuncionariodto.getQuantidade()));
+            pstm.setString(3, String.valueOf(objfuncionariodto.getQuantidade()));
+            pstm.setString(4, String.valueOf(objfuncionariodto.getPreco()));
+           
 
             pstm.execute();
             pstm.close();
@@ -49,8 +50,9 @@ public class FuncionarioDao {
                 objFuncionarioDTO.setId(rs.getInt("id"));
                 objFuncionarioDTO.setNome(rs.getString("nome"));
                 objFuncionarioDTO.setDescricao(rs.getString("descricao"));
+                objFuncionarioDTO.setQuantidade(Integer.valueOf(rs.getString("quantidade")));
                 objFuncionarioDTO.setPreco(Float.valueOf(rs.getString("preco")));
-                objFuncionarioDTO.setQuantidade(Integer.valueOf(rs.getString("quantidade")));    
+                    
                 
 
                 lista.add(objFuncionarioDTO);
@@ -63,18 +65,17 @@ public class FuncionarioDao {
     }
 
     public void alterarFuncionario(FuncionarioDTO objfuncionariodto) {
-        String sql = "update Estoque set nome = ?, descricao = ?  quantidade = ?,preco = ?,where id = ?";
+        String sql = "update Estoque set nome = ?, descricao = ?, quantidade = ?, preco = ? where id = ?";
 
         conn = new ConexaoDao().conectaBD();
 
         try {
             pstm = conn.prepareStatement(sql);
+            pstm.setInt(5, objfuncionariodto.getId());
             pstm.setString(1, objfuncionariodto.getNome());
             pstm.setString(2, objfuncionariodto.getDescricao());
-            pstm.setInt(3, objfuncionariodto.getId());
-            pstm.setString(3, String.valueOf(objfuncionariodto.getPreco()));
-            pstm.setString(4, String.valueOf(objfuncionariodto.getQuantidade()));
-
+            pstm.setString(3, String.valueOf(objfuncionariodto.getQuantidade()));
+            pstm.setString(4, String.valueOf(objfuncionariodto.getPreco()));
             pstm.execute();
             pstm.close();
 
