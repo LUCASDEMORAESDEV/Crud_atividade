@@ -347,8 +347,10 @@ public class frmFuncionarioVIEW extends javax.swing.JFrame {
         Nome = txtnome.getText();
         descricao = txtEndereco.getText();
         quantidade = Integer.parseInt(txtQuantidade.getText());
-        preco = Integer.parseInt(txtQuantidade.getText());
-
+         preco = Double.parseDouble(txtPreco.getText());
+           
+  
+        
         FuncionarioDTO objfuncionariodto = new FuncionarioDTO();
         objfuncionariodto.setNome(Nome);
         objfuncionariodto.setDescricao(descricao);
