@@ -10,6 +10,7 @@ import DTO.UsuarioDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import VIEW.frmFuncionarioVIEW;
 
 /**
  *
@@ -97,29 +98,7 @@ public class frmLoginVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginUsuarioActionPerformed
 
     private void btnEntrarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarSistemaActionPerformed
-        try{
-        String nome_usuario , senha_usuario;
-        nome_usuario = txtLoginUsuario.getText();
-        senha_usuario = txtSenhaUsuario.getText();
-        
-        UsuarioDTO objusuariodto = new UsuarioDTO();
-        objusuariodto.setNome_usuario(nome_usuario);
-        objusuariodto.setSenha_usuario(senha_usuario);
-       
-            UsuarioDAO objuUsuarioDAO = new UsuarioDAO();
-            ResultSet rsusuariodao = objuUsuarioDAO.autenticacaoUsuario(objusuariodto);
-            if(rsusuariodao.next()){
-                frmlPrincipalVIEW objPrincipalVIEW = new frmlPrincipalVIEW();
-                objPrincipalVIEW.setVisible(true);
-                dispose();
-               
-            }else{
-              JOptionPane.showMessageDialog(null, "senha ou usuario invalida");
-            }
-        
-        } catch (SQLException erro)  {
-            JOptionPane.showMessageDialog(null, "FRMLOGINVIEW" + erro);
-        }
+        Logar();
         
     }//GEN-LAST:event_btnEntrarSistemaActionPerformed
 
@@ -165,4 +144,32 @@ public class frmLoginVIEW extends javax.swing.JFrame {
     private javax.swing.JTextField txtLoginUsuario;
     private javax.swing.JTextField txtSenhaUsuario;
     // End of variables declaration//GEN-END:variables
+
+    public void Logar(){
+try{
+        String nome_usuario , senha_usuario;
+        nome_usuario = txtLoginUsuario.getText();
+        senha_usuario = txtSenhaUsuario.getText();
+        
+        UsuarioDTO objusuariodto = new UsuarioDTO();
+        objusuariodto.setNome_usuario(nome_usuario);
+        objusuariodto.setSenha_usuario(senha_usuario);
+       
+  UsuarioDAO objuUsuarioDAO = new UsuarioDAO();
+ ResultSet rsusuariodao = objuUsuarioDAO.autenticacaoUsuario(objusuariodto);
+            
+ if(rsusuariodao.next()){
+        frmFuncionarioVIEW objPrincipalVIEW = new frmFuncionarioVIEW();
+                objPrincipalVIEW.setVisible(true);
+                dispose();
+               
+            }else{
+          JOptionPane.showMessageDialog(null, "senha ou usuario invalida");
+            }
+        
+        } catch (SQLException erro)  {
+            JOptionPane.showMessageDialog(null, "FRMLOGINVIEW" + erro);
+        }
+    }
+        
 }
